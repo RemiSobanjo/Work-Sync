@@ -1,0 +1,28 @@
+node_modules
+
+.env# all .tmp files
+*.tmp      
+
+# Ignore temp folders
+temp/ 
+
+# Ignore .env file
+.env
+
+# Ignore vendor directory 
+vendor/
+logs/
+auth/logs/
+client/logs/
+
+# Ignore IDE files
+.idea/
+.vscode/
+
+# Others
+.mys.php
+test.php
+test.html
+logfile.log
+*.log
+node_modules/

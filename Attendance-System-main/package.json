@@ -1,0 +1,37 @@
+{
+  "name": "attendance-system",
+  "version": "1.0.0",
+  "description": "An attendance system to monitor staff and visitors",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OPEX-Consulting/Attendance-System.git"
+  },
+  "keywords": [
+    "HR",
+    "Attendance",
+    "Management",
+    "System",
+    "Clock-in-out",
+    "Employee",
+    "Management"
+  ],
+  "author": "Opex Consulting",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OPEX-Consulting/Attendance-System/issues"
+  },
+  "homepage": "https://github.com/OPEX-Consulting/Attendance-System#readme",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "axios-middleware": "^0.4.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1"
+  }
+}

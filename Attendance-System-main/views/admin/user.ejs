@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>User Profile</title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!-- Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- CSS Files -->
+  <link href="../admin/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../admin/assets/css/admin.css" rel="stylesheet" />
+  <link href="../admin/assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="user-profile">
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    <!-- End Sidebar -->
+    <div class="main-panel" id="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent bg-primary navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#">User Profile</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation"></div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="panel-header panel-header-sm"></div>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Edit Profile</h5>
+              </div>
+              <div class="card-body">
+                <form id="profileForm">
+                  <div class="row">
+                    <div class="col-md-5 pr-1">
+                      <div class="form-group">
+                        <label>Company (disabled)</label>
+                        <input type="text" class="form-control" id="company" disabled value="Opex Consulting">
+                      </div>
+                    </div>
+                    <div class="col-md-3 px-1">
+                      <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Username">
+                      </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                      </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                      <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Home Address">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 pr-1">
+                      <div class="form-group">
+                        <label>City</label>
+                        <input type="text" class="form-control" id="city" placeholder="City">
+                      </div>
+                    </div>
+                    <div class="col-md-4 px-1">
+                      <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" class="form-control" id="country" placeholder="Country">
+                      </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                      <div class="form-group">
+                        <label>Postal Code</label>
+                        <input type="text" class="form-control" id="postalCode" placeholder="ZIP Code">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" id="phone" placeholder="Phone">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav>
+            <ul>
+              <li>
+                <a href="https://www.opexconsult.com">Opex Consulting</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright" id="copyright">
+            © <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>,
+            Designed by <a href="https://www.invisionapp.com" target="_blank">Opex-Team-Engrs</a>. Coded by <a href="https://www.opexconsult.com" target="_blank">Opex Consulting</a>.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- Core JS Files -->
+  <script src="../admin/assets/js/core/jquery.min.js"></script>
+  <script src="../admin/assets/js/core/popper.min.js"></script>
+  <script src="../admin/assets/js/core/bootstrap.min.js"></script>
+  <script src="../admin/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Google Maps Plugin -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="../admin/assets/js/plugins/chartjs.min.js"></script>
+  <!-- Notifications Plugin -->
+  <script src="../admin/assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Admin Dashboard -->
+  <script src="../admin/assets/js/admin.js"></script>
+  <!-- Demo methods -->
+  <script src="../admin/assets/demo/demo.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Please log in to view your profile');
+        window.location.href = '/admin/login';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:3001/api/admin/profile', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+        console.log('Profile response:', data);
+
+        if (!response.ok) {
+          alert(data.message || 'Failed to fetch profile');
+          if (data.statusCode === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/admin/login';
+          }
+          return;
+        }
+
+        // Populate form fields
+        document.getElementById('firstName').value = data.data.firstName || '';
+        document.getElementById('lastName').value = data.data.lastName || '';
+        document.getElementById('username').value = data.data.username || '';
+        document.getElementById('email').value = data.data.email || '';
+        document.getElementById('phone').value = data.data.phone || '';
+        document.getElementById('company').value = data.data.company || 'Opex Consulting';
+        document.getElementById('address').value = data.data.address || '';
+        document.getElementById('city').value = data.data.city || '';
+        document.getElementById('country').value = data.data.country || '';
+        document.getElementById('postalCode').value = data.data.postalCode || '';
+      } catch (err) {
+        console.error('Profile fetch error:', err);
+        alert('An error occurred while fetching your profile');
+      }
+    });
+
+    // Handle form submission
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Please log in to update your profile');
+        window.location.href = '/admin/login';
+        return;
+      }
+
+      const profileData = {
+        firstName: document.getElementById('firstName').value || '',
+        lastName: document.getElementById('lastName').value || '',
+        username: document.getElementById('username').value || '',
+        email: document.getElementById('email').value || '',
+        phone: document.getElementById('phone').value || '',
+        company: document.getElementById('company').value || '',
+        address: document.getElementById('address').value || '',
+        city: document.getElementById('city').value || '',
+        country: document.getElementById('country').value || '',
+        postalCode: document.getElementById('postalCode').value || '',
+      };
+
+      console.log('Sending profileData:', profileData);
+      console.log('Request headers:', {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      });
+
+      try {
+        const response = await fetch('http://localhost:3001/api/admin/profile', {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(profileData),
+        });
+
+        const data = await response.json();
+        console.log('Profile update response:', data);
+
+        if (!response.ok) {
+          alert(data.message || 'Failed to update profile');
+          if (data.statusCode === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/admin/login';
+          }
+          return;
+        }
+
+        alert('Profile updated successfully');
+      } catch (err) {
+        console.error('Profile update error:', err);
+        alert('An error occurred while updating your profile');
+      }
+    });
+  </script>
+</body>
+
+</html>

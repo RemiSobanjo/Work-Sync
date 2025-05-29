@@ -1,0 +1,96 @@
+<div class="sidebar" data-color="orange">
+  <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+  <div class="logo">
+    <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+      OPEX
+    </a>
+    <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+      Attendance Log
+    </a>
+  </div>
+  <div class="sidebar-wrapper" id="sidebar-wrapper">
+    <ul class="nav">
+      <li class="<%= currentPage === 'dashboard' ? 'active' : '' %>">
+        <a href="./dashboard">
+          <i class="now-ui-icons design_app"></i>
+          <p>Dashboard</p>
+        </a>
+      </li>
+      <li class="<%= currentPage === 'log' ? 'active' : '' %>">
+        <a href="./all_users">
+          <i class="now-ui-icons business_badge"></i>
+          <p>Users</p>
+        </a>
+      </li>
+      <!-- <li>
+            <a href="./leave">
+              <i class="now-ui-icons ui-2_time-alarm"></i>
+              <p>Leave Request</p>
+            </a>
+          </li> -->
+      <li class="<%= currentPage === 'user' ? 'active' : '' %>">
+        <a href="./user">
+          <i class="now-ui-icons users_single-02"></i>
+          <p>User Profile</p>
+        </a>
+      </li>
+      <li class="<%= currentPage === 'admin' ? 'active' : '' %>">
+        <a href="./create_admin">
+          <i class="now-ui-icons users_single-02"></i>
+          <p>Create Admin</p>
+        </a>
+      </li>
+      <li class="<%= currentPage === 'password' ? 'active' : '' %>">
+        <a href="./change_pass">
+          <i class="now-ui-icons objects_key-25"></i>
+          <p>Change Password</p>
+        </a>
+      </li>
+      <li>
+        <form id="logoutForm" method="POST" action="http://localhost:3001/api/admin/logout">
+          <button type="submit" class="btn btn-link" style="color: white; text-decoration: none;">
+            <i class="now-ui-icons media-1_button-power"></i>
+            <p style="display: inline;">Logout</p>
+          </button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+  document.getElementById('logoutForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      window.location.href = '/admin/login';
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/api/admin/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      });
+
+      const data = await response.json();
+
+      // Clear token from storage
+      localStorage.removeItem('token');
+
+      // Redirect to login
+      window.location.href = '/admin/login';
+    } catch (err) {
+      console.error('Logout failed:', err);
+      alert('Error logging out. Please try again.');
+    }
+  });
+</script>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="../assets/img/apple-icon.png"
+    />
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>User</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <!--     Fonts and icons     -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <!-- CSS Files -->
+    <link href="../admin/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../admin/assets/css/admin.css" rel="stylesheet" />
+
+    <link href="../admin/assets/demo/demo.css" rel="stylesheet" />
+  </head>
+
+  <body class="user-profile">
+    <div class="wrapper">
+      <!---- Sidebar start -->
+      <%- include('../partials/sidebar') %>
+      <!---- Sidebar end -->
+      <div class="main-panel" id="main-panel">
+        <!-- Navbar -->
+        <nav
+          class="navbar navbar-expand-lg navbar-transparent bg-primary navbar-absolute"
+        >
+          <div class="container-fluid">
+            <div class="navbar-wrapper">
+              <div class="navbar-toggle">
+                <button type="button" class="navbar-toggler">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </button>
+              </div>
+              <a class="navbar-brand" href="#pablo">New Password</a>
+            </div>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navigation"
+              aria-controls="navigation-index"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-bar navbar-kebab"></span>
+              <span class="navbar-toggler-bar navbar-kebab"></span>
+              <span class="navbar-toggler-bar navbar-kebab"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-end"
+              id="navigation"
+            ></div>
+          </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="panel-header panel-header-sm"></div>
+        <div class="content">
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="title">Change Password</h5>
+                </div>
+                <div class="card-body">
+                  <form id="passwordForm" method="POST">
+                    <div class="row">
+                      <div class="col-md-12 px-5">
+                        <div class="form-group">
+                          <label>Old Password</label>
+                          <input
+                            type="password"
+                            name="oldPassword"
+                            class="form-control"
+                            placeholder="Enter Old Password"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-12 px-5">
+                        <div class="form-group">
+                          <label>New Password</label>
+                          <input
+                            type="password"
+                            name="newPassword"
+                            id="newPassword"
+                            class="form-control"
+                            placeholder="Enter New Password"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-12 px-5">
+                        <div class="form-group">
+                          <label>Confirm Password</label>
+                          <input
+                            type="password"
+                            name="confirmNewPassword"
+                            id="confirmPassword"
+                            class="form-control"
+                            placeholder="Confirm New Password"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <ul class="helper-text">
+                        <li class="length">
+                          Must be at least 8 characters long.
+                        </li>
+                        <li class="lowercase">
+                          Must contain a lowercase letter.
+                        </li>
+                        <li class="uppercase">
+                          Must contain an uppercase letter.
+                        </li>
+                        <li class="special">
+                          Must contain a number or special character.
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      id="submitBtn"
+                      class="btn btn-primary btn-block btn-round"
+                      disabled
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <div class="container-fluid">
+            <nav>
+              <ul>
+                <li>
+                  <a href="https://www.opexconsult.com"> Opex Consulting </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright" id="copyright">
+              &copy;
+              <script>
+                document
+                  .getElementById("copyright")
+                  .appendChild(
+                    document.createTextNode(new Date().getFullYear())
+                  );
+              </script>
+              , Designed by
+              <a href="https://www.invisionapp.com" target="_blank">Invision</a
+              >. Coded by
+              <a href="https://www.opexconsult.com" target="_blank"
+                >Opex consulting</a
+              >.
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- API Integration -->
+    <script>
+      // Helper to extract token from URL
+      function getQueryParam(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = getQueryParam("token");
+        const oldPasswordField = document
+          .querySelector('[name="oldPassword"]')
+          ?.closest(".form-group");
+
+        // Hide Old Password input if token is present (first-time setup)
+        if (token && oldPasswordField) {
+          oldPasswordField.style.display = "none";
+        }
+
+        document
+          .getElementById("passwordForm")
+          .addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            // Only get oldPassword if the field is visible
+            const oldPassword =
+              oldPasswordField && oldPasswordField.style.display !== "none"
+                ? document.querySelector('[name="oldPassword"]').value
+                : null;
+
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmNewPassword =
+              document.getElementById("confirmPassword").value;
+
+            const payload = {
+              newPassword,
+              confirmNewPassword,
+              token, // Include token if present
+            };
+
+            // Include oldPassword only if it exists (not first-time setup)
+            if (oldPassword !== null) {
+              payload.oldPassword = oldPassword;
+            }
+
+            try {
+              const res = await fetch(
+                "http://localhost:3001/api/admin/change_pass",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("adminToken") || "", // Include only if logged in
+                  },
+                  body: JSON.stringify(payload),
+                }
+              );
+
+              const data = await res.json();
+
+              if (res.ok) {
+                alert(data.message);
+                window.location.href = "/admin/login"; // Redirect on success
+              } else {
+                alert(data.message || "Something went wrong.");
+              }
+            } catch (err) {
+              console.error("Password change error:", err);
+              alert("An error occurred.");
+            }
+          });
+      });
+    </script>
+
+    <!--   Core JS Files   -->
+    <script src="../admin/assets/js/core/jquery.min.js"></script>
+    <script src="../admin/assets/js/core/popper.min.js"></script>
+    <script src="../admin/assets/js/core/bootstrap.min.js"></script>
+    <script src="../admin/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- Chart JS -->
+    <script src="../admin/assets/js/plugins/chartjs.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="../admin/assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../admin/assets/js/admin.js" type="text/javascript"></script>
+    <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../admin/assets/demo/demo.js" type="text/javascript"></script>
+    <script
+      src="../admin/assets/js/pass_validation.js"
+      type="text/javascript"
+    ></script>
+  </body>
+</html>
