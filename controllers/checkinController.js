@@ -53,6 +53,24 @@ exports.submitVisitor = async (req, res) => {
         // return res.redirect('/visitor?success=1');
         // return res.render('check-in/visitor', { success: 'Check-in successful', error: null });
     } catch (err) {
+        if (err.response?.data.status === 'false' && err.response?.data.message === 'Visitor already exists') {
+            const response = await axios.post(`${process.env.API_BASE_URL}/api/visitor/clock-in`, {
+                phone
+            });
+
+            const checkinStatus = response.data?.status;
+            const checkinMessage = response.data?.message;
+
+            if (checkinStatus === 'true') {
+                return res.render('check-in/visitor', { success: checkinMessage || 'Check-in successful', error: null });
+            } else {
+                return res.render('check-in/visitor', {
+                    error: checkinMessage || 'Check-in failed from API.',
+                    success: null
+                });
+            }
+        }
+
         console.error('Check-in error:', err.response?.data || err.message);
         return res.render('check-in/visitor', {
             error: 'Failed to check in. Please try again.',
@@ -78,22 +96,24 @@ exports.submitCheckoutVisitor = async (req, res) => {
     const timeOut = checkOutDate.toISOString();
 
     try {
-        const response = await axios.post(`${process.env.API_BASE_URL}/api/visitor/clock-in`, {
+        const response = await axios.post(`${process.env.API_BASE_URL}/api/visitor/clock-out`, {
             phone
         });
 
         const apiStatus = response.data?.status;
         const apiMessage = response.data?.message;
 
-        console.log(response.data?.DATA?.firstName);
+        // console.log(response.data?.data?.DATA?.firstName);
 
         if (apiStatus === 'true') {
-            const visitorData= response.data?.DATA || {};
-            return res.render('check-out/visitor', { 
-                success: apiMessage || 'Check-out successful', 
+            const visitorData = response.data?.data?.DATA || {};
+
+            return res.render('check-out/visitor', {
+                success: apiMessage || 'Check-out successful',
                 error: null,
                 firstName: visitorData.firstName || '',
                 lastName: visitorData.lastName || '',
+                phone: phone || '',
             });
         }
         else {
@@ -132,8 +152,7 @@ exports.submitStaff = async (req, res) => {
 
     try {
         const response = await axios.post(`${process.env.API_BASE_URL}/api/clock-in`, {
-            staffID,
-            timeIn
+            staffID
         });
 
         const apiStatus = response.data?.status;
@@ -155,14 +174,18 @@ exports.submitStaffOut = async (req, res) => {
 
     // Get current date
     const checkInDate = new Date(Date.now() - 5000);
-    const timeOut = checkInDate.toISOString();
+    // const timeOut = checkInDate.toISOString();
 
     try {
         const response = await axios.post(`${process.env.API_BASE_URL}/api/clock-out`, {
-            staffID,
-            timeOut
+            staffID
         });
-        return res.redirect('/staff?success=1');
+
+        return res.render('check-in/staff', {
+            success: 'Clock-out successful!',
+            error: null,
+            check: 'Out'
+        });
         // return res.render('check-in/visitor', { success: 'Check-in successful', error: null });
     } catch (err) {
         console.error('Check-in error:', err.response?.data || err.message);

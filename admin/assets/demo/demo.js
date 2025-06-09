@@ -1,5 +1,6 @@
 const currentYear = new Date().getFullYear();
-const BASE_URL = 'https://attendance-system-backend-aqpa.onrender.com';
+// const BASE_URL = 'https://attendance-system-backend-aqpa.onrender.com';
+const BASE_URL = 'http://localhost:3001';
 
 demo = {
   initPickColor: function () {
@@ -218,6 +219,8 @@ demo = {
         }
       }
     };
+
+    //Biggest chart
 
     fetch(`${BASE_URL}/api/visitor/monthly-visits/${currentYear}`)
       .then(response => response.json())

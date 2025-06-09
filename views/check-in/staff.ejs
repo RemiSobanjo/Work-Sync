@@ -12,16 +12,16 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <!-- Nucleo Icons -->
-  <link href="css/nucleo-icons.css" rel="stylesheet" />
-  <link href="css/nucleo-svg.css" rel="stylesheet" />
+  <link href="/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="css/style.css" rel="stylesheet" />
-  <link id="pagestyle" href="css/clock.css" rel="stylesheet" />
+  <link id="pagestyle" href="/css/style.css" rel="stylesheet" />
+  <link id="pagestyle" href="/css/clock.css" rel="stylesheet" />
 </head>
 
 <body class="sign-in-basic">
@@ -34,17 +34,17 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 position-relative bg-cover px-0 vh-100" loading="lazy">
                 <div class="flex-row w-100 ps-5 mb-3 icon h-10 me-3 d-flex mt-3">
-                  <i class="fa fa-arrow-left text-gradient text-warning pointer" onclick="window.history.back()"></i>
+                  <i class="fa fa-arrow-left text-gradient text-warning pointer" onclick="window.location.href='/'"></i>
                 </div>
                 <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
-                  <div class="mask bg-gradient-dark opacity-8"></div>
+                  <div class="mask opacity-8"></div>
 
                   <!----- start Form ------->
                   <div class="container">
                     <div class="row">
                       <div class="col-9 mx-auto d-flex justify-content-center flex-column">
                         <h3 class="text-center my-3" id="c-heading">Clock In</h3>
-                        <form role="form" id="contact-form" action="/check-in/staff" method="POST" autocomplete="on">
+                        <form role="form" id="contact-form" action="/check-in/staff?<%= check ? 'check=' + check : '' %>" method="POST" autocomplete="on">
                           <div class="card-body">
                             <div class="mb-3">
                               <div class="input-group input-group-dynamic">
@@ -82,7 +82,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 position-relative clock-bg bg-cover px-0 vh-100"
-                style="background-image: url('img/city-profile.jpg')" loading="lazy">
+                style="background-image: url('/img/city-profile.jpg')" loading="lazy">
                 <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
                   <div class="mask bg-gradient-dark opacity-8"></div>
 
@@ -116,6 +116,7 @@
                     </div>
                   </div>
                   <!--- didgital clock ends-->
+                  
                   <div class="p-5 position-relative text-center my-auto z-index-2">
                     <div class="d-flex p-2 pb-5 text-white">
                       <div class="ps-2">
@@ -123,7 +124,7 @@
                       </div>
                     </div>
                     <button type="button" class="btn bg-gradient-warning w-auto me-1 mb-0"
-                      onclick="window.history.back()">Go Back</button>
+                      onclick="window.location.href='/'">Go Back</button>
                   </div>
                 </div>
               </div>
@@ -134,14 +135,14 @@
     </div>
   </section>
   <!--   Core JS Files   -->
-  <script src="js/core/popper.min.js" type="text/javascript"></script>
-  <script src="js/core/bootstrap.min.js" type="text/javascript"></script>
-  <script src="js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/js/plugins/perfect-scrollbar.min.js"></script>
   <!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
-  <script src="js/custom.min.js" type="text/javascript"></script>
-  <script src="js/clock.js" type="text/javascript"></script>
+  <script src="/js/custom.min.js" type="text/javascript"></script>
+  <script src="/js/clock.js" type="text/javascript"></script>
   <script>
     //get the query string from url
     let params = new URLSearchParams(window.location.search);

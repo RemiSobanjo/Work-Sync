@@ -20,69 +20,6 @@
   <link href="/admin/assets/css/admin.css" rel="stylesheet" />
 
   <link href="/admin/assets/demo/demo.css" rel="stylesheet" />
-  <style>
-    .has-background-gradient-green {
-      background: rgb(147, 223, 148);
-      background: linear-gradient(90deg, rgba(147, 223, 148, 1) 0%, rgba(94, 200, 90, 1) 66%);
-      color: white;
-    }
-
-    .has-background-gradient-green .my-icon {
-      background: rgba(147, 223, 148, 0.9);
-    }
-
-
-    .has-background-gradient-blue {
-      background: rgb(179, 186, 255);
-      background: linear-gradient(90deg, rgba(179, 186, 255, 1) 0%, rgba(125, 143, 255, 1) 66%);
-      color: white;
-    }
-
-    .has-background-gradient-blue .my-icon {
-      background: rgba(179, 186, 255, 0.9);
-    }
-
-
-    .has-background-gradient-orange {
-      background: rgb(255, 204, 149);
-      background: linear-gradient(90deg, rgba(255, 204, 149, 1) 0%, rgba(255, 112, 67, 1) 66%);
-      color: white;
-    }
-
-    .has-background-gradient-orange .my-icon {
-      background: rgba(255, 204, 149, 0.9);
-    }
-
-    .has-background-gradient-teal {
-      background: rgb(182, 225, 221);
-      background: linear-gradient(90deg, rgba(182, 225, 221, 1) 0%, rgba(38, 166, 154, 1) 66%);
-      color: white;
-    }
-
-    .has-background-gradient-teal .my-icon {
-      background: rgba(182, 225, 221, 0.9);
-    }
-
-    .my-card {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      min-height: 65px;
-      border: none;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: row;
-    }
-
-    .metric-card h2 {
-      font-size: 1.5em !important;
-      margin-bottom: 0px !important;
-    }
-
-    .my-card .my-icon {
-      border-radius: 8px;
-      font-size: 15px;
-    }
-  </style>
 </head>
 
 <body class="">
@@ -135,6 +72,8 @@
         <div class="panel-header panel-header-lg">
           <canvas id="bigDashboardChart"></canvas>
         </div>
+
+        <!-- Analytics card -->
         <div class="content">
           <div class="row">
             <div class="col-lg-4 col-md-6">
@@ -199,12 +138,12 @@
                       <span class="fa fa-users my-icon py-3 px-4"></span>
                     </div>
                     <div class="my-auto px-4">
-                      <p class="mb-1">Totla Staff no.</p>
-                      <h2><span id="total-staff-count">
-                          <div class="stats">
-                            <i class="now-ui-icons loader_refresh spin"></i>
-                          </div>
-                        </span></h2>
+                      <p class="mb-1">Total Staff no.</p>
+                      <h2>
+                        <% if (typeof totalStaffCount !=='undefined' ) { %>
+                          <%= totalStaffCount %>
+                            <% } %>
+                      </h2>
                     </div>
 
                   </div>
@@ -242,6 +181,7 @@
           </div>
         </div>
 
+        <!-- Log table -->
         <div class="content">
           <div class="row">
 
@@ -251,8 +191,134 @@
                 <div class="card-header">
                   <h5 class="card-category">Staff Attendance</h5>
                   <h4 class="card-title">Attendance Metrics</h4>
+                  <% if (!attendanceData) { %>
+                    <div class="alert alert-danger">Attendance data is missing!</div>
+                    <% } else { %>
+                      <div class="alert alert-success">Attendance data loaded successfully.</div>
+                      <% } %>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="attendance-table">
+                  <div class="table-responsive-md">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <!-- Week Navigation Buttons -->
+
+                      <!-- Previous Weeks Buttons -->
+                      <a href="?offset=<%= week.offset + 1 %>&page=<%= pagination.current %>#attendance-table"
+                        class="btn btn-outline-primary">
+                        ← Previous Week
+                      </a>
+
+                      <!----Skip to current week -->
+                      <% if (week.offset> 0) { %>
+                        <a href="?offset=0&page=<%= pagination.current %>#attendance-table" class="btn btn-info">
+                          📅 Current Week
+                        </a>
+                        <% } %>
+
+                          <!-- Next Week Button, will only appear when admin clicks previous week button -->
+                          <% if (week.offset> 0) { %>
+                            <a href="?offset=<%= week.offset - 1 %>&page=<%= pagination.current %>#attendance-table"
+                              class="btn btn-outline-success">
+                              Next Week →
+                            </a>
+                            <% } %>
+                    </div>
+
+                    <div class="row justify-content-between align-items-end mb-3 log-filter">
+                      <!-- Left Column: Search + Clear -->
+                      <div class="col-md-7 col-sm-6">
+                        <form method="GET" class="d-flex gap-2 align-items-center">
+                          <input type="hidden" name="offset" value="<%= week.offset %>">
+                          <input type="hidden" name="page" value="1">
+                          <input type="text" name="search" class="form-control-sm flex-grow-1"
+                            placeholder="Search staff name..." value="<%= search || '' %>">
+                          <button type="submit" class="btn btn-primary">Search</button>
+                          <!-- <a href="" class="btn btn-secondary">Clear Filters</a> -->
+                        </form>
+                      </div>
+
+                      <!-- Right Column: Date Picker + Go Button -->
+                      <div class="col-md-5 col-sm-6">
+                        <div class="d-flex gap-2 justify-content-end align-items-center">
+                          <input type="date" id="datePicker" class="form-control-sm w-auto flex-grow-1">
+                          <button id="jumpToDateBtn" class="btn btn-secondary"><i class="now-ui-icons ui-1_calendar-60"></i></button>
+                           <a href="/admin/dashboard" class="btn btn-secondary">Clear Filters</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <table class="table table-bordered text-center">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th>Name</th>
+                          <% weekDays.forEach(day=> { %>
+                            <th>
+                              <%= day.name %><br>
+                                <small>
+                                  <%= day.date %>
+                                </small>
+                            </th>
+                            <% }) %>
+                              <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% attendanceData.forEach(staff=> { %>
+                          <tr>
+                            <td>
+                              <%= staff.name %>
+                            </td>
+                            <% ['Monday','Tuesday','Wednesday','Thursday','Friday'].forEach(day=> { %>
+                              <td>
+                                <% if (staff.attendance[day]) { %>
+                                  ✅
+                                  <% } else { %>
+                                    ❌
+                                    <% } %>
+                              </td>
+                              <% }) %>
+                                <td>
+                                  <%= staff.total %>
+                                </td>
+                          </tr>
+                          <% }) %>
+                      </tbody>
+                    </table>
+                    <!-- Pagination Controls -->
+                    <div class="pagination-container">
+                      <ul class="pagination">
+                        <% if (pagination.current> 1) { %>
+                          <li><a
+                              href="?page=<%= pagination.current - 1 %>&offset=<%= week.offset %><%= search ? `&search=${encodeURIComponent(search)}` : '' %>#attendance-table">Prev</a>
+                          </li>
+                          <% } else { %>
+                            <li class="disabled">Prev</li>
+                            <% } %>
+
+                              <% for (let i=1; i <=pagination.total; i++) { %>
+                                <% if ( i===1 || i===pagination.total || Math.abs(i - pagination.current) <=1 ) { %>
+                                  <li class="<%= i === pagination.current ? 'active' : '' %>">
+                                    <a
+                                      href="?page=<%= i %>&offset=<%= week.offset %><%= search ? `&search=${encodeURIComponent(search)}` : '' %>#attendance-table">
+                                      <%= i %>
+                                    </a>
+                                  </li>
+                                  <% } else if ( i===2 && pagination.current> 3 ||
+                                    i === pagination.total - 1 && pagination.current < pagination.total - 2 ) { %>
+                                      <li>...</li>
+                                      <% } %>
+                                        <% } %>
+
+                                          <% if (pagination.current < pagination.total) { %>
+                                            <li><a
+                                                href="?page=<%= pagination.current + 1 %>&offset=<%= week.offset %><%= search ? `&search=${encodeURIComponent(search)}` : '' %>#attendance-table">Next</a>
+                                            </li>
+                                            <% } else { %>
+                                              <li class="disabled">Next</li>
+                                              <% } %>
+                      </ul>
+                    </div>
+                  </div>
 
                 </div>
                 <div class="card-footer">
@@ -265,39 +331,53 @@
           </div>
 
         </div>
-      </div>
-      <footer class="footer">
-        <div class=" container-fluid ">
-          <nav>
-            <ul>
-              <li>
-                <a href="https://www.opexconsult.com">
-                  Opex consulting
-                </a>
-              </li>
-              <li>
-                <a href="http://opexconsult.com">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.opexconsult.com">
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright" id="copyright">
-            &copy;
-            <script>
-              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-            </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Opex-Team-Engrs</a>. Coded
-            by
-            <a href="https://www.opexconsult.com" target="_blank">Opex Consulting</a>.
+
+
+        <% if (typeof error !=='undefined' && error ) { %>
+          <div class="alert alert-danger">
+            <%= error %>
           </div>
-        </div>
-      </footer>
-  </div>
+          <% } %>
+            <% if (typeof success !=='undefined' && success) { %>
+              <div class="alert alert-success">
+                <%= success %>
+              </div>
+              <% } %>
+                <!-- Footer section -->
+                <footer class="footer">
+                  <div class=" container-fluid ">
+                    <nav>
+                      <ul>
+                        <li>
+                          <a href="https://www.opexconsult.com">
+                            Opex consulting
+                          </a>
+                        </li>
+                        <li>
+                          <a href="http://opexconsult.com">
+                            About Us
+                          </a>
+                        </li>
+                        <li>
+                          <a href="http://blog.opexconsult.com">
+                            Blog
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                    <div class="copyright" id="copyright">
+                      &copy;
+                      <script>
+                        document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                      </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Opex-Team-Engrs</a>.
+                      Coded
+                      by
+                      <a href="https://www.opexconsult.com" target="_blank">Opex Consulting</a>.
+                    </div>
+                  </div>
+                </footer>
+      </div>
+
   </div>
   <!--   Core JS Files   -->
   <script src="/admin/assets/js/core/jquery.min.js"></script>
@@ -318,34 +398,35 @@
     $(document).ready(function () {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
-
     });
-  </script>
-  <script>
-    async function fetchAndDisplayTotalStaff() {
-      try {
-        const response = await fetch('https://attendance-system-backend-aqpa.onrender.com/api/staff');
-        const json = await response.json();
 
-        if (json.status === "true" && json.data?.DATA) {
-          const allStaff = json.data.DATA;
+    // make alert disappear after set time
+    window.setTimeout(function () {
+      $(".alert").fadeTo(500, 0).slideUp(500, function () {
+        $(this).remove();
+      });
+    }, 4000);
 
-          // Use a Set to ensure uniqueness by staffID
-          const uniqueStaffIDs = new Set(allStaff.map(staff => staff.staffID));
-          const totalCount = uniqueStaffIDs.size;
+    //date filter
+    document.getElementById('jumpToDateBtn').addEventListener('click', function () {
+      const selectedDate = document.getElementById('datePicker').value;
+      if (!selectedDate) return;
 
-          // Inject into your HTML
-          document.getElementById('total-staff-count').textContent = totalCount;
-        } else {
-          console.error("Invalid response from API:", json);
-        }
-      } catch (error) {
-        console.error("Error fetching staff data:", error);
-      }
-    }
+      const inputDate = new Date(selectedDate);
+      const now = new Date();
 
-    // Run on page load
-    window.addEventListener('DOMContentLoaded', fetchAndDisplayTotalStaff);
+      // Start of current ISO week
+      const startOfThisWeek = new Date(now.setDate(now.getDate() - (now.getDay() === 0 ? 6 : now.getDay() - 1)));
+      const startOfInputWeek = new Date(inputDate.setDate(inputDate.getDate() - (inputDate.getDay() === 0 ? 6 : inputDate.getDay() - 1)));
+
+      // Calculate offset in weeks
+      const diffInTime = startOfInputWeek.getTime() - startOfThisWeek.getTime();
+      const offset = Math.round(diffInTime / (7 * 24 * 60 * 60 * 1000));
+
+      // Redirect with new offset and anchor
+      const currentPage = <%= pagination.current %>;
+      window.location.href = `?offset=${offset}&page=${currentPage}#attendance-table`;
+    });
   </script>
 </body>
 

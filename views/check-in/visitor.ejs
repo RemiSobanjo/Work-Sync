@@ -34,13 +34,13 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 position-relative bg-cover px-0 vh-100" loading="lazy">
                 <div class="flex-row w-100 ps-5 mb-3 icon h-10 me-3 d-flex mt-3">
-                  <i class="fa fa-arrow-left text-gradient text-warning pointer" onclick="window.history.back()"></i>
+                  <i class="fa fa-arrow-left text-gradient text-warning pointer" onclick="window.location.href='/'"></i>
                 </div>
                 <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
-                  <div class="mask bg-gradient-dark opacity-8"></div>
+                  <div class="mask opacity-8"></div>
 
                   <!----- start Form ------->
-                  <div class="container">
+                  <div class="container overflow-scroll pb-5">
                     <div class="row">
                       <div class="col-9 mx-auto d-flex justify-content-center flex-column">
                         <h3 class="text-center my-3" id="c-heading">Clock In</h3>
@@ -84,7 +84,7 @@
                                 </div>
                               </div>
                               <div class="input-group mb-3 input-group-static">
-                                <label>Reason of Visit</label>
+                                <label class="text-grey">Reason of Visit</label>
                                 <textarea name="purposeOfVisit" class="form-control" id="purposeOfVisit" rows="1"></textarea>
                               </div>
                             </div>
@@ -93,10 +93,10 @@
                               <div class="col-md-12 visit-in">
                                 <div class="form-check mb-3 d-flex align-items-start">
                                   <input class="form-check-input" type="checkbox" name="consent" value="no" id="flexCheckDefault">
-                                  <label class="z-index-2 fs-xs form-check-label ms-3 mb-0 text-start"
+                                  <label class="z-index-2 fs-xs form-check-label ms-3 mb-0 text-start text-grey"
                                     for="flexSwitchCheckDefault">By
                                     clicking the checkbox, you permit OPEX Consulting to collect and save your
-                                    information.
+                                    information. Read more about this in our <a class="text-primary" href="/privacy" target="_blank">Privacy Policy</a>
                                     <!-- <a href="javascript:;" class="text-dark"><u>Terms and Conditions</u></a>.</label> -->
                                 </div>
                               </div>
@@ -129,7 +129,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 position-relative clock-bg bg-cover px-0 vh-100"
-                style="background-image: url('img/examples/blog2.jpg')" loading="lazy">
+                style="background-image: url('/img/examples/blog2.jpg')" loading="lazy">
                 <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
                   <div class="mask bg-gradient-dark opacity-8"></div>
                   <!--- digital clock starts-->
@@ -169,7 +169,7 @@
                       </div>
                     </div>
                     <button type="button" class="btn bg-gradient-warning w-auto me-1 mb-0"
-                      onclick="window.history.back()">Go Back</button>
+                      onclick="window.location.href='/'">Go Back</button>
                   </div>
                 </div>
               </div>

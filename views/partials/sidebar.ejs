@@ -3,10 +3,10 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
   <div class="logo">
-    <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+    <a href="http://opexconsult.com" class="simple-text logo-mini">
       OPEX
     </a>
-    <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+    <a href="http://www.opexconsult.com" class="simple-text logo-normal">
       Attendance Log
     </a>
   </div>
@@ -38,8 +38,14 @@
       </li>
       <li class="<%= currentPage === 'admin' ? 'active' : '' %>">
         <a href="./create_admin">
-          <i class="now-ui-icons users_single-02"></i>
+          <i class="now-ui-icons business_briefcase-24"></i>
           <p>Create Admin</p>
+        </a>
+      </li>
+      <li class="<%= currentPage === 'addStaff' ? 'active' : '' %>">
+        <a href="./register">
+          <i class="now-ui-icons users_circle-08"></i>
+          <p>Add Staff</p>
         </a>
       </li>
       <li class="<%= currentPage === 'password' ? 'active' : '' %>">
@@ -48,13 +54,19 @@
           <p>Change Password</p>
         </a>
       </li>
-      <li>
+      <!-- <li>
         <form id="logoutForm" method="POST" action="http://localhost:3001/api/admin/logout">
           <button type="submit" class="btn btn-link" style="color: white; text-decoration: none;">
             <i class="now-ui-icons media-1_button-power"></i>
             <p style="display: inline;">Logout</p>
           </button>
         </form>
+      </li> -->
+       <li>
+        <a href="./logout">
+          <i class="now-ui-icons media-1_button-power"></i>
+          <p>Logout</p>
+        </a>
       </li>
     </ul>
   </div>
@@ -62,35 +74,35 @@
 
 
 <script>
-  document.getElementById('logoutForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+  // document.getElementById('logoutForm').addEventListener('submit', async function (e) {
+  //   e.preventDefault();
 
-    const token = localStorage.getItem('token');
+  //   const token = localStorage.getItem('token');
 
-    if (!token) {
-      window.location.href = '/admin/login';
-      return;
-    }
+  //   if (!token) {
+  //     window.location.href = '/admin/login';
+  //     return;
+  //   }
 
-    try {
-      const response = await fetch('http://localhost:3001/api/admin/logout', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        }
-      });
+  //   try {
+  //     const response = await fetch('http://localhost:3001/api/admin/logout', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //         'Content-Type': 'application/json',
+  //       }
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      // Clear token from storage
-      localStorage.removeItem('token');
+  //     // Clear token from storage
+  //     localStorage.removeItem('token');
 
-      // Redirect to login
-      window.location.href = '/admin/login';
-    } catch (err) {
-      console.error('Logout failed:', err);
-      alert('Error logging out. Please try again.');
-    }
-  });
+  //     // Redirect to login
+  //     window.location.href = '/admin/login';
+  //   } catch (err) {
+  //     console.error('Logout failed:', err);
+  //     alert('Error logging out. Please try again.');
+  //   }
+  // });
 </script>

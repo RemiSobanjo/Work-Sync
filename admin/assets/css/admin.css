@@ -1297,6 +1297,22 @@ fieldset[disabled] .btn-link.active {
   filter: alpha(opacity=100);
 }
 
+.form-control-sm {
+  background-color: transparent;
+  border: 1px solid #E3E3E3;
+  border-radius: 30px;
+  color: #2c2c2c;
+  line-height: normal;
+  font-size: 0.8571em;
+  -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  -moz-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  -ms-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 .form-control {
   background-color: transparent;
   border: 1px solid #E3E3E3;
@@ -5972,9 +5988,71 @@ form ul.helper-text {
   line-height: 15px;
   color: red;
 }
+
 form ul.helper-text li.valid {
   color: blue;
 }
+
 form.valid input {
   border: 2px solid blue;
+}
+
+#attendance-table table th {
+  font-size: 14px;
+}
+
+#attendance-table table th small {
+  font-size: 10px;
+}
+
+.pagination-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  list-style: none;
+  display: inline-flex;
+  gap: 8px;
+  padding: 0;
+}
+
+.pagination li {
+  display: inline;
+}
+
+.pagination a,
+.pagination li {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fff;
+  /* border: 1px solid #ddd; */
+  color: #333;
+  text-decoration: none;
+  font-size: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.pagination a:hover {
+  background: #f0f0f0;
+}
+
+.pagination .active a,
+.pagination .active {
+  background: #1a73e8;
+  color: #fff;
+  border-color: #1a73e8;
+  cursor: default;
+}
+
+.pagination .disabled {
+  color: #aaa;
+  background: #f8f8f8;
+  cursor: not-allowed;
+  pointer-events: none;
+  border: 1px solid #ddd;
+}
+
+.log-filter .btn {
+  padding: 7px 22px !important;
 }

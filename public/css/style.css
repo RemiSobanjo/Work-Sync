@@ -24092,7 +24092,8 @@ label,
 }
 
 .bg-gradient-faded-white {
-  background-image: radial-gradient(370px circle at 80% 50%, rgba(255, 255, 255, 0.6) 0, rgb(229.5, 229.5, 229.5) 100%);
+  /* background-image: radial-gradient(370px circle at 80% 50%, rgba(255, 255, 255, 0.6) 0, rgb(229.5, 229.5, 229.5) 100%); */
+  background-image: radial-gradient(370px circle at 80% 50%, rgba(99, 77, 53, 0.6) 0, rgb(229.5, 229.5, 229.5) 100%);
 }
 
 .bg-gradient-faded-dark-blue {
@@ -24284,6 +24285,10 @@ label,
 
 .info-horizontal .description {
   overflow: hidden;
+}
+
+.text-grey{
+  color: #737373;
 }
 
 svg.text-primary .color-foreground {
