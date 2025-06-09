@@ -8,7 +8,7 @@ require('dotenv').config(); // Load variables from .env
 const PORT = process.env.PORT || 5000;
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || affd1cc426fa203f3c5258f45d7d54afe0434c3ccae870d17f96b555de78d39faf79c173c6df1a618982983fdc14f3aa30f7d9b74ff8c3a6cad1996bf74b11db,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // set to true if using HTTPS
